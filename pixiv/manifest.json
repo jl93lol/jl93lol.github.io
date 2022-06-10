@@ -1,0 +1,14 @@
+{
+    "name": "Pixiv Database Viewer",
+    "short_name": "Pixiv Database Viewer",
+    "start_url": ".",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "src/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

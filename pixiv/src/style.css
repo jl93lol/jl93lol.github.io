@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap');
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Dosis', sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.button {
+    background-color: #A7D3FF;
+    border: none;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 1rem 1rem;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.nav {
+    display: grid;
+    grid-template-columns: auto 4.3rem;
+    grid-gap: 0.5rem;
+    position: fixed;
+    top: 0;
+    height: 4rem;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    z-index: 1;
+}
+
+.searchbar {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 0.6rem 1rem;
+    box-sizing: border-box;
+    border: 0.15rem solid #A7D3FF;
+    border-radius: 0.7rem;
+    font-size: 1.2rem;
+}
+
+#menutoggle {
+    opacity: 0;
+    z-index: 1;
+}
+
+#menutoggle:checked + .menubtn > span {
+    transform: rotate(45deg);
+}
+
+#menutoggle:checked + .menubtn > span::before {
+    top: 0;
+    transform: rotate(0deg);
+}
+
+#menutoggle:checked + .menubtn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+#menutoggle:checked ~ .menubox {
+    right: 0 !important;
+}
+
+.menubtn {
+    position: fixed;
+    top: 0rem;
+    right: 1rem;
+    width: 1.9rem;
+    height: 4rem;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.menubtn > span,
+.menubtn > span::before,
+.menubtn > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 2rem;
+    height: 0.15rem;
+    background-color: #A7D3FF;
+    transition-duration: .25s;
+}
+
+.menubtn > span::before {
+    content: '';
+    top: -0.5rem;
+}
+
+.menubtn > span::after {
+    content: '';
+    top: 0.5rem;
+}
+
+.menubox {
+    display: block;
+    position: fixed;
+    border-top-left-radius: 2rem;
+    top: 0;
+    right: -100%;
+    width: 40vw;
+    height: 100%;
+    margin: 0;
+    padding: 5rem 0;
+    list-style: none;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .7);
+    transition-duration: .25s;
+    overflow-y: scroll;
+}
+
+.menubox::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.menutitle {
+    padding-left: 2rem;
+    color: #333;
+}
+
+.menuauthor {
+    padding-left: 2rem;
+    font-size: small;
+    color: #333;
+}
+
+.menuinfo {
+    display: inline-block;
+    color: #333;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-size: x-large;
+}
+
+input[type=number] {
+    -webkit-appearance: none;
+    position: absolute;
+    display: inline-block;
+    margin-top: 1.2rem;
+    right: 2rem;
+    width: 2.5rem;
+    height: 1.5rem;
+    border-width: 0.15rem;
+    border-color: #8EC6FF;
+    border-radius: 0.4rem;
+    border-style: solid;
+    text-align: center;
+    font-size: large;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#Sorting {
+    position: absolute;
+    display: inline-block;
+    margin-top: 1.1rem;
+    right: 2rem;
+    width: min-content;
+    height: 2rem;
+    background-color: #FFFFFF;
+    border-width: 0.15rem;
+    border-color: #8EC6FF;
+    border-radius: 0.4rem;
+    border-style: solid;
+    text-align: center;
+    font-size: large;
+}
+
+.switch {
+    position: absolute;
+    display: inline-block;
+    width: 2.9rem;
+    height: 1.3rem;
+    right: 2rem;
+    margin-top: 1.5rem;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 1rem;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1rem;
+    width: 1rem;
+    left: 0.17rem;
+    bottom: 0.14rem;
+    background-color: white;
+    transition: .1s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #8EC6FF;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #8EC6FF;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(1.57rem);
+    -ms-transform: translateX(1.57rem);
+    transform: translateX(1.57rem);
+}
+
+.applybtn {
+    height: 2rem;
+    background-color: #8EC6FF;
+    border: 1rem #8EC6FF;
+    color: #000000;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin: 2rem;
+    padding: 1.6rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: x-large;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+div {
+    display: block;
+    padding: 0 !important;
+}
+
+.debug {
+    padding: 1rem;
+}
+
+.main {
+    display: block;
+    margin-top: 5.5rem;
+    margin-bottom: 3rem;
+}
+
+.beautify {
+    margin: 1vw 0;
+    text-align: center;
+}
+
+.gridimage {
+    padding: 0.25vw;
+    object-fit: contain;
+}
+
+@media only screen and (max-width: 768px) {
+    .menubox {
+        width: 97vw;
+    }
+}
