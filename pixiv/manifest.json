@@ -3,11 +3,12 @@
     "short_name": "Pixiv Database Viewer",
     "start_url": ".",
     "background_color": "#FFFFFF",
+    "theme_color": "#FFFFFF",
     "display": "standalone",
     "icons": [
         {
             "src": "src/icon.png",
-            "sizes": "512x512",
+            "sizes": "500x500",
             "type": "image/png"
         }
     ]
