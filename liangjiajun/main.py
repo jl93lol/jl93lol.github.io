@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
 import discord
 import random
-from datetime import date, datetime
+from datetime import datetime
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -201,4 +202,4 @@ Foreign Ministry Spokesperson Simulator
 You may type in `$help` to get help from president XI.
             """)
 
-client.run("MTAyNTI5NTQ2MzYwNTMzODE0Mg.GJ0znC.520qPldy2HHGIWIw70VTe5jktKYT74REX1i2s8")
+client.run(os.getenv("DISCORD_TOKEN"))
