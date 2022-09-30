@@ -201,5 +201,5 @@ Foreign Ministry Spokesperson Simulator
 **Error: Unknown command.**
 You may type in `$help` to get help from president XI.
             """)
-
+            
 client.run(os.getenv("DISCORD_TOKEN"))
