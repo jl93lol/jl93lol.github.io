@@ -134,10 +134,12 @@ async def on_message(message):
 async def info(interaction: discord.Interaction):
     await interaction.response.send_message("""
 **機器人版本: v1.1**
-**作者: 未知**
+**作者: ^#@$%*&%^!!*%!@**
 **發行日期: 02/03/2023**
 **開始運行時間: {0}**
-**https://github.com/Rapptz/discord.py**
+
+**技術支援: https://github.com/Rapptz/discord.py**
+**源代碼: https://github.com/jl93lol/jl93lol.github.io/blob/main/梁家鈞.py**
 """.format(start_datetime))
 
 
