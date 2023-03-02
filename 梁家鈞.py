@@ -207,4 +207,4 @@ async def gengshuang(interaction: discord.Interaction, 支持: bool, 發言對�
 
 
 
-client.run("MTAyNTI5NTQ2MzYwNTMzODE0Mg.GE_6aW.5YclJEMsskOBlLhDVRiudSELBYEY5XhMxZXTE0")
+client.run("TOKEN")
