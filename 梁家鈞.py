@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-import os
 import discord
 import random
 from datetime import datetime
 
 intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+tree = discord.app_commands.CommandTree(client)
 intents.message_content = True
 start_datetime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-client = discord.Client(intents=intents)
 gengshuang_head_true = [
     "我们注意到有关报道，对#N#B表示欢迎。",
     "中方支持并赞赏#N作出#B这一重要决定。",
@@ -115,6 +115,7 @@ gengshuang_sentence_false = [
 
 @client.event
 async def on_ready():
+    await tree.sync(guild=discord.Object(id=733305913762512966))
     print(f'We have logged in as {client.user}')
 
 @client.event
@@ -127,79 +128,83 @@ async def on_message(message):
     if content.lower().startswith("fuck you"):
         await message.channel.send("Thank you!")
 
-    elif content.startswith("$help"):
-        await message.channel.send("""
-**Discord bot version: v1.0**
-**Creator: Unknown**
-**Date of publication: 30/09/2022**
-**The bot has been running since {0}**
+
+
+@tree.command(name = "info", description = "獲取機器人資訊", guild=discord.Object(id=733305913762512966))
+async def info(interaction: discord.Interaction):
+    await interaction.response.send_message("""
+**機器人版本: v1.1**
+**作者: 未知**
+**發行日期: 02/03/2023**
+**開始運行時間: {0}**
+**https://github.com/Rapptz/discord.py**
+""".format(start_datetime))
+
+
+
+@tree.command(name = "rand", description = "隨機獲取名人金句", guild=discord.Object(id=733305913762512966))
+async def rand(interaction: discord.Interaction):
+    random_sentence = [
+        ">>> **第一口池子是颇费功夫。一直看到沼气池两边的水位在涨，但是就不见气出。哎，很奇怪，怎么回事？最后的原因找到了，就是那个导气管堵塞了，最后一捅开溅得我满脸喷粪啊，满脸是粪。**\n\n- 中国共产党中央委员会总书记、中共中央军事委员会主席、中华人民共和国主席、中华人民共和国中央军事委员会主席 习近平",
+        ">>> **下雨刮风我是在窑洞里跟他们铡草，晚上跟着看牲口，然后跟他们去放羊，什么活都干，因为我那时候扛200斤麦子，十里山路我不换肩的。**\n\n- 中国共产党中央委员会总书记、中共中央军事委员会主席、中华人民共和国主席、中华人民共和国中央军事委员会主席 习近平",
+        ">>> **人民就是江山，共产党打江山、守江山，守的是人民的心，为的是让人民过上好日子。我们党的百年奋斗史就是为人民谋幸福的历史。**\n\n- 中国共产党中央委员会总书记、中共中央军事委员会主席、中华人民共和国主席、中华人民共和国中央军事委员会主席 习近平"
+    ]
+    await interaction.response.send_message(random_sentence[random.randint(0,len(random_sentence)-1)])
+
+
+
+@tree.command(name = "gengshuang", description = "耿爽模擬器 (來源: https://gengshuang1.github.io/)", guild=discord.Object(id=733305913762512966))
+async def gengshuang(interaction: discord.Interaction, 支持: bool, 發言對象: str, 對方幹了什麼事情: str):
+    send_pending = ""
+    used_sentence = []
+    if (支持):
+        num1 = random.randint(0,len(gengshuang_head_true) - 1)
+        send_pending = ("记者：#N#B，中方对此有何回应？\n\n耿爽：").replace("#N",發言對象).replace("#B",對方幹了什麼事情) + gengshuang_head_true[num1].replace("#N",發言對象).replace("#B",對方幹了什麼事情)
+            
+        for i in range(3):
+            num2 = 0
+            if i == 0:
+                num2 = round(random.randint(3,len(gengshuang_sentence_true) - 1) / 3)
+            elif i == 1:
+                num2 = round(random.randint(6,len(gengshuang_sentence_true) - 1) / 2)
+                send_pending += ("\n\n")
+            else:
+                num2 = random.randint(2,5)
+                send_pending += ("\n\n")
+            for i2 in range(num2):
+                is_new = False
+                while not is_new:
+                    dummy = gengshuang_sentence_true[random.randint(0,len(gengshuang_sentence_true) - 1)]
+                    if not dummy in used_sentence:
+                        send_pending += dummy.replace("#N",發言對象).replace("#B",對方幹了什麼事情)
+                        used_sentence.append(dummy)
+                        is_new = True
+
+    else:
+        num1 = random.randint(0,len(gengshuang_head_false) - 1)
+        send_pending = ("记者：#N#B，中方对此有何回应？\n\n耿爽：").replace("#N",發言對象).replace("#B",對方幹了什麼事情) + gengshuang_head_false[num1].replace("#N",發言對象).replace("#B",對方幹了什麼事情)
         
-`$help`
-seek help from President XI
+        for i in range(3):
+            num2 = 0
+            if i == 0:
+                num2 = round(random.randint(3,len(gengshuang_sentence_false) - 1) / 3)
+            elif i == 1:
+                num2 = round(random.randint(6,len(gengshuang_sentence_false) - 1) / 2)
+                send_pending += ("\n\n")
+            else:
+                num2 = random.randint(2,5)
+                send_pending += ("\n\n")
+            for i2 in range(num2):
+                is_new = False
+                while not is_new:
+                    dummy = gengshuang_sentence_false[random.randint(0,len(gengshuang_sentence_false) - 1)]
+                    if not dummy in used_sentence:
+                        send_pending += dummy.replace("#N",發言對象).replace("#B",對方幹了什麼事情)
+                        used_sentence.append(dummy)
+                        is_new = True
 
-`$gengshuang [true/false] [發言對象] [對方幹了什麼事情]`
-_Example: $gengshuang false 俄罗斯 入侵乌克兰_
-Foreign Ministry Spokesperson Simulator
-        """.format(start_datetime))
+    await interaction.response.send_message(send_pending)
 
-    elif content.startswith("$gengshuang"):
-        used_sentence = []
-        if content.split("gengshuang ")[1].lower().startswith("t"):
-            num1 = random.randint(0,len(gengshuang_head_true) - 1)
-            send_pending = ("记者：#N#B，中方对此有何回应？\n\n耿爽：").replace("#N",content.split(" ")[2]).replace("#B",content.split(content.split(" ")[2] + " ")[1]) + gengshuang_head_true[num1].replace("#N",content.split(" ")[2]).replace("#B",content.split(content.split(" ")[2] + " ")[1])
-            
-            for i in range(3):
-                num2 = 0
-                if i == 0:
-                    num2 = round(random.randint(3,len(gengshuang_sentence_true) - 1) / 3)
-                elif i == 1:
-                    num2 = round(random.randint(6,len(gengshuang_sentence_true) - 1) / 2)
-                    send_pending += ("\n\n")
-                else:
-                    num2 = random.randint(2,5)
-                    send_pending += ("\n\n")
-                for i2 in range(num2):
-                    is_new = False
-                    while not is_new:
-                        dummy = gengshuang_sentence_true[random.randint(0,len(gengshuang_sentence_true) - 1)]
-                        if not dummy in used_sentence:
-                            send_pending += dummy.replace("#N",content.split(" ")[2]).replace("#B",content.split(content.split(" ")[2] + " ")[1])
-                            used_sentence.append(dummy)
-                            is_new = True
 
-            await message.channel.send(send_pending)
-        if content.split("gengshuang ")[1].lower().startswith("f"):
-            num1 = random.randint(0,len(gengshuang_head_false) - 1)
-            send_pending = ("记者：#N#B，中方对此有何回应？\n\n耿爽：").replace("#N",content.split(" ")[2]).replace("#B",content.split(content.split(" ")[2] + " ")[1]) + gengshuang_head_false[num1].replace("#N",content.split(" ")[2]).replace("#B",content.split(content.split(" ")[2] + " ")[1])
-            
-            for i in range(3):
-                num2 = 0
-                if i == 0:
-                    num2 = round(random.randint(3,len(gengshuang_sentence_false) - 1) / 3)
-                elif i == 1:
-                    num2 = round(random.randint(6,len(gengshuang_sentence_false) - 1) / 2)
-                    send_pending += ("\n\n")
-                else:
-                    num2 = random.randint(2,5)
-                    send_pending += ("\n\n")
-                for i2 in range(num2):
-                    is_new = False
-                    while not is_new:
-                        dummy = gengshuang_sentence_false[random.randint(0,len(gengshuang_sentence_false) - 1)]
-                        if not dummy in used_sentence:
-                            send_pending += dummy.replace("#N",content.split(" ")[2]).replace("#B",content.split(content.split(" ")[2] + " ")[1])
-                            used_sentence.append(dummy)
-                            is_new = True
 
-            await message.channel.send(send_pending)
-    
-    elif content.startswith("$"):
-        try:
-            float(content.split("$")[1].split(" ")[0])
-        except ValueError:
-            await message.channel.send("""
-**Error: Unknown command.**
-You may type in `$help` to get help from president XI.
-            """)
-            
-client.run(os.getenv("DISCORD_TOKEN"))
+client.run("MTAyNTI5NTQ2MzYwNTMzODE0Mg.GE_6aW.5YclJEMsskOBlLhDVRiudSELBYEY5XhMxZXTE0")
