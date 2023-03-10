@@ -133,9 +133,9 @@ async def on_message(message):
 @tree.command(name = "info", description = "獲取機器人資訊", guild=discord.Object(id=733305913762512966))
 async def info(interaction: discord.Interaction):
     await interaction.response.send_message("""
-**機器人版本: v1.1**
+**機器人版本: v1.2**
 **作者: ^#@$%*&%^!!*%!@**
-**發行日期: 02/03/2023**
+**發行日期: 10/03/2023**
 **開始運行時間: {0}**
 
 **技術支援: https://github.com/Rapptz/discord.py**
